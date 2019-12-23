@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telcam_app/custom-widgets/my_app_bar.dart';
 
 class CustomersListScreen extends StatefulWidget {
   CustomersListScreen({Key key, this.title}) : super(key: key);
@@ -14,9 +15,7 @@ class _CustomersListScreenState extends State<CustomersListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: MyAppBar(widget.title),
       body: Center(
         child: Text('Customer list goes here.'),
       ),

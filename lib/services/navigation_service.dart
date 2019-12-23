@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:telcam_app/screens/CustomersListScreen.dart';
-import 'package:telcam_app/screens/HomeScreen.dart';
-import 'package:telcam_app/screens/SearchScreen.dart';
+import 'package:telcam_app/screens/customers_list.dart';
+import 'package:telcam_app/screens/home.dart';
+import 'package:telcam_app/screens/search.dart';
 
 class NavigationService {
   static navigateToHomeScreen(BuildContext context) {
