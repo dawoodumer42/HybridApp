@@ -33,9 +33,9 @@ class HttpErrorHandler {
   static String _returnErrorMessage(int statusCode){
     String msg = '';
     if (statusCode == 400) {
-      msg = 'Invalid user Email or Password.';
+      msg = 'Bad Request';
     } else if (statusCode == 401) {
-      msg = 'Unautorized user access or token expired. Please login again.';
+      msg = 'Unautorized user access';
       // LogoutService logoutService = LogoutService(context);
       // logoutService.logout();
     }else if(statusCode == 403){

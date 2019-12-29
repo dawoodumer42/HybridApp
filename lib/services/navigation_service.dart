@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:telcam_app/authentication-screens/login.dart';
-import 'package:telcam_app/home_screens//customers_list.dart';
 import 'package:telcam_app/home_screens/home.dart';
 import 'package:telcam_app/home_screens/search.dart';
+import 'package:telcam_app/home_screens/folders_list.dart';
 
 class NavigationService {
   static navigateToHomeScreen(BuildContext context) {
@@ -33,12 +33,13 @@ class NavigationService {
     );
   }
 
-  static navigateToCustomersListScreen(BuildContext context) {
+  static navigateToFoldersListScreen(BuildContext context, String title, String folderPath) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CustomersListScreen(
-          title: 'Customers',
+        builder: (context) => FoldersListScreen(
+          title: title,
+          folderPath: folderPath,
         ),
       ),
     );

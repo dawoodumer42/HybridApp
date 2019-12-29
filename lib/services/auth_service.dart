@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:telcam_app/app_constants/config.dart';
+import 'package:telcam_app/app_constants/dropbox_config.dart';
 import 'package:telcam_app/models/user.dart';
 
 class AuthService{
@@ -12,13 +12,8 @@ class AuthService{
   }
 
   // get firebase app key
-  String getAppKey(){
-    return firebase_app_key;
-  }
-
-  // get firebase app secret
-  String getAppSecret(){
-    return firebase_app_secret;
+  static String getToken(){
+    return dropbox_token;
   }
 
   // auth change user stream

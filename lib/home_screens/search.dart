@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:telcam_app/custom-widgets/logo.dart';
 import 'package:telcam_app/custom-widgets/my_app_bar.dart';
 import 'package:telcam_app/services/navigation_service.dart';
+import 'package:telcam_app/app_constants/dropbox_config.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key key, this.title}) : super(key: key);
@@ -14,6 +15,8 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
+  final String foldersListPageTitle = 'Test';
+
   Widget _buildTelButton() {
     return Material(
       elevation: 5.0,
@@ -23,7 +26,8 @@ class _SearchScreenState extends State<SearchScreen> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          NavigationService.navigateToCustomersListScreen(context);
+          NavigationService.navigateToFoldersListScreen(
+              context, foldersListPageTitle, BASE_FOLDER_PATH);
         },
         child: Text("TEL - ",
             textAlign: TextAlign.center,
@@ -42,7 +46,8 @@ class _SearchScreenState extends State<SearchScreen> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          NavigationService.navigateToCustomersListScreen(context);
+          NavigationService.navigateToFoldersListScreen(
+              context, foldersListPageTitle, BASE_FOLDER_PATH);
         },
         child: Text("Customer Name",
             textAlign: TextAlign.center,
@@ -61,7 +66,8 @@ class _SearchScreenState extends State<SearchScreen> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          NavigationService.navigateToCustomersListScreen(context);
+          NavigationService.navigateToFoldersListScreen(
+              context, foldersListPageTitle, BASE_FOLDER_PATH);
         },
         child: Text("Postcode",
             textAlign: TextAlign.center,
