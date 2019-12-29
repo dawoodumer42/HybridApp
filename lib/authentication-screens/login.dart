@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:telcam_app/custom-widgets/error_message.dart';
 import 'package:telcam_app/custom-widgets/loading_bar.dart';
 import 'package:telcam_app/custom-widgets/logo.dart';
-import 'package:telcam_app/error_handlers/http_error_handler.dart';
+import 'package:telcam_app/services/auth_service.dart';
+import 'package:telcam_app/services/navigation_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,43 +13,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  double _borderRaiusValue = 32.0;
+  double _borderRadiusValue = 32.0;
 
   bool _isLoading = false;
   bool _isError = false;
   String _errorMsg = '';
 
-  final Map<String, dynamic> _formData = {
-    'email': null,
-    'password': null,
-  };
+  final AuthService _auth = AuthService();
+
+  String _userId= '';
+  String _password = '';
+
+//  final Map<String, dynamic> _formData = {
+//    'email': null,
+//    'password': null,
+//  };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FocusNode _emailFocus = FocusNode();
   FocusNode _passwordFocus = FocusNode();
-
-  Widget _buildLoginButton() {
-    return Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: Theme.of(context).primaryColor,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(16.0),
-        onPressed: () {
-          // NavigationService.navigateToHomeScreen(context);
-          _submitForm();
-        },
-        child: Text(
-          "Login",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
 
   void _fieldFocusChange(
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
@@ -64,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         fillColor: Colors.white,
         contentPadding: EdgeInsets.all(16.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(_borderRaiusValue),
+          borderRadius: BorderRadius.circular(_borderRadiusValue),
           borderSide: new BorderSide(),
         ),
       ),
@@ -76,11 +58,13 @@ class _LoginPageState extends State<LoginPage> {
       },
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Please enter a valid email';
+          return 'User id is required.';
         }
+        return null;
       },
       onSaved: (String value) {
-        _formData['email'] = value;
+//        _formData['email'] = value;
+        _userId = value;
       },
     );
   }
@@ -93,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
         fillColor: Colors.white,
         contentPadding: EdgeInsets.all(16.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(_borderRaiusValue),
+          borderRadius: BorderRadius.circular(_borderRadiusValue),
           borderSide: new BorderSide(),
         ),
       ),
@@ -101,13 +85,40 @@ class _LoginPageState extends State<LoginPage> {
       focusNode: _passwordFocus,
       textInputAction: TextInputAction.done,
       validator: (String value) {
-        if (value.isEmpty || value.length < 3) {
-          return 'Password invalid';
+        if (value.isEmpty) {
+          return 'Password is required';
+        } else if(value.length < 3){
+          return 'Atleast 3 digits required.';
         }
+        return null;
       },
       onSaved: (String value) {
-        _formData['password'] = value;
+//        _formData['password'] = value;
+      _password = value;
       },
+    );
+  }
+
+  Widget _buildLoginButton() {
+    return Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: Theme.of(context).primaryColor,
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(16.0),
+        onPressed: () {
+           _submitForm();
+        },
+        child: Text(
+          "Login",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
   }
 
@@ -140,14 +151,33 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     _resetErrors();
     if (!_formKey.currentState.validate()) {
       return;
     }
-    _toggleLoading();
-    _formKey.currentState.save();
-    print(_formKey.toString());
+    else{
+      _toggleLoading();
+      _formKey.currentState.save();
+
+      print(_userId);
+      print(_password);
+//      print(_formKey.toString());
+      dynamic result = await _auth.signInWithEmailAndPassword(_userId, _password);
+      if(result == null){
+        _toggleLoading();
+        setState(() {
+          _isError = true;
+          _errorMsg = 'Invalid credentials.';
+        });
+      } else {
+//        _toggleLoading();
+        print ('signed in');
+        print(result.uid);
+        NavigationService.navigateToHomeScreen(context);
+      }
+    }
+
     // var userData =
     //     'username=${_formData['email']}&password=${_formData['password']}&grant_type=password&user_type=Customer&outlet_id=$OUTLET_ID';
     // String loginUrl = '$BASE_URL/token';

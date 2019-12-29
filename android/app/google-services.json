@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "624294625831",
+    "firebase_url": "https://telcam-app.firebaseio.com",
+    "project_id": "telcam-app",
+    "storage_bucket": "telcam-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624294625831:android:33db003da0c513d0c30402",
+        "android_client_info": {
+          "package_name": "com.example.telcam_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624294625831-6b5019mdfkm6vb9vsi3naimqce576ufi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFoihCXelcdB4HTnfV5Wv2C6Ux-JLCMP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624294625831-6b5019mdfkm6vb9vsi3naimqce576ufi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
